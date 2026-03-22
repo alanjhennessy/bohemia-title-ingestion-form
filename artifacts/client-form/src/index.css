@@ -33,8 +33,8 @@
   --card: 0 0% 100%;              /* Pure white */
   --card-foreground: 222 47% 11%;
   
-  --primary: 221 83% 53%;         /* Vibrant indigo */
-  --primary-foreground: 210 40% 98%;
+  --primary: 0 84% 50%;           /* Vibrant red */
+  --primary-foreground: 0 0% 100%;
   
   --secondary: 210 40% 96%;       /* Lighter slate */
   --secondary-foreground: 222 47% 11%;
@@ -50,7 +50,7 @@
   
   --border: 214 32% 91%;          /* Soft border */
   --input: 214 32% 91%;
-  --ring: 221 83% 53%;
+  --ring: 0 84% 50%;
   
   --radius: 0.75rem;
 }
@@ -61,8 +61,8 @@
   --card: 222 47% 13%;
   --card-foreground: 210 40% 98%;
   
-  --primary: 217.2 91.2% 59.8%;
-  --primary-foreground: 222.2 47.4% 11.2%;
+  --primary: 0 84% 60%;
+  --primary-foreground: 0 0% 100%;
   
   --secondary: 217.2 32.6% 17.5%;
   --secondary-foreground: 210 40% 98%;
