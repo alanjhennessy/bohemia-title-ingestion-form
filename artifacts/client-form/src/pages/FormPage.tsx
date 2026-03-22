@@ -157,20 +157,15 @@ export default function FormPage() {
   return (
     <main className="min-h-screen pb-24">
       {/* Hero */}
-      <div className="relative h-[240px] w-full overflow-hidden bg-slate-900 flex items-center justify-center">
-        <div className="absolute inset-0 opacity-40 mix-blend-screen">
-          <img
-            src={`${import.meta.env.BASE_URL}images/hero-bg.png`}
-            alt="Abstract background"
-            className="w-full h-full object-cover"
-          />
+      <div className="relative h-[220px] w-full overflow-hidden bg-gradient-to-br from-violet-600 via-purple-600 to-pink-500 flex items-center justify-center">
+        <div className="absolute text-[180px] text-white/10 select-none pointer-events-none font-bold leading-none -rotate-12 translate-y-4">
+          ♪
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
         <div className="relative z-10 text-center px-4">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-extrabold text-white tracking-tight"
+            className="text-4xl md:text-5xl font-bold text-white tracking-tight font-display"
           >
             New Title Ingestion
           </motion.h1>
@@ -178,7 +173,7 @@ export default function FormPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="mt-4 text-lg text-slate-300 font-medium max-w-2xl mx-auto"
+            className="mt-4 text-lg text-white/80 font-medium max-w-2xl mx-auto"
           >
             Submit your release metadata
           </motion.p>
@@ -207,7 +202,7 @@ export default function FormPage() {
               </p>
               <button
                 onClick={handleReset}
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold bg-foreground text-background hover:bg-foreground/90 transition-all hover:-translate-y-0.5 hover:shadow-xl shadow-lg active:translate-y-0"
+                className="inline-flex items-center gap-2 px-10 py-4 rounded-full font-bold bg-gradient-to-r from-violet-500 to-pink-500 text-white hover:opacity-90 transition-all hover:-translate-y-0.5 hover:shadow-xl shadow-lg active:translate-y-0"
               >
                 Submit Another Release <ArrowRight className="w-5 h-5" />
               </button>
@@ -226,17 +221,17 @@ export default function FormPage() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`bg-card rounded-3xl overflow-hidden shadow-lg border transition-colors duration-300 ${
-                  albumExpanded ? "border-primary/30 shadow-primary/5" : "border-border shadow-black/5"
+                className={`bg-card rounded-3xl overflow-hidden shadow-lg border-2 transition-colors duration-300 ${
+                  albumExpanded ? "border-violet-300 shadow-sm shadow-violet-100/50" : "border-gray-200 shadow-black/5"
                 }`}
               >
                 <div
                   className={`p-6 md:p-8 flex items-center gap-4 cursor-pointer select-none transition-colors ${
-                    albumExpanded ? "bg-primary/5" : "hover:bg-muted/50"
+                    albumExpanded ? "bg-violet-50" : "hover:bg-gray-50"
                   }`}
                   onClick={() => setAlbumExpanded((v) => !v)}
                 >
-                  <div className={`p-3 rounded-2xl ${albumExpanded ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+                  <div className={`p-3 rounded-2xl ${albumExpanded ? "bg-gradient-to-br from-violet-500 to-pink-500 text-white shadow-md" : "bg-gray-100 text-gray-500"}`}>
                     <Music className="w-6 h-6" />
                   </div>
                   <div className="flex-1">
@@ -299,7 +294,7 @@ export default function FormPage() {
                 {/* Section header row */}
                 <div className="flex items-center justify-between px-1">
                   <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-primary text-primary-foreground">
+                    <div className="p-2.5 rounded-xl bg-gradient-to-br from-violet-500 to-pink-500 text-white shadow-md">
                       <Mic2 className="w-5 h-5" />
                     </div>
                     <div>
@@ -313,7 +308,7 @@ export default function FormPage() {
                     type="button"
                     onClick={handleAddTrack}
                     disabled={trackFields.length >= MAX_TRACKS}
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold bg-primary text-primary-foreground shadow-md shadow-primary/20 hover:bg-primary/90 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none transition-all duration-200"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-bold bg-gradient-to-r from-violet-500 to-pink-500 text-white shadow-md shadow-violet-200 hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none transition-all duration-200"
                   >
                     <Plus className="w-4 h-4" />
                     Add Track
@@ -332,22 +327,22 @@ export default function FormPage() {
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, height: 0 }}
-                        className={`bg-card rounded-2xl overflow-hidden shadow-md border transition-colors duration-300 ${
-                          isExpanded ? "border-primary/30 shadow-primary/5" : "border-border shadow-black/5"
+                        className={`bg-card rounded-2xl overflow-hidden shadow-md border-2 transition-colors duration-300 ${
+                          isExpanded ? "border-violet-300 shadow-sm shadow-violet-100/50" : "border-gray-200 shadow-black/5"
                         }`}
                       >
                         {/* Card header */}
                         <div
                           className={`px-6 py-4 flex items-center gap-3 cursor-pointer select-none transition-colors ${
-                            isExpanded ? "bg-primary/5" : "hover:bg-muted/50"
+                            isExpanded ? "bg-violet-50" : "hover:bg-gray-50"
                           }`}
                           onClick={() => toggleTrack(index)}
                         >
                           <div
-                            className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold shrink-0 ${
+                            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
                               isExpanded
-                                ? "bg-primary text-primary-foreground"
-                                : "bg-muted text-muted-foreground"
+                                ? "bg-gradient-to-br from-violet-500 to-pink-500 text-white shadow-md"
+                                : "bg-gray-100 text-gray-500"
                             }`}
                           >
                             {seqDisplay}
@@ -389,7 +384,7 @@ export default function FormPage() {
                               <div className="p-6 md:p-8 space-y-10">
                                 {/* Track fields group */}
                                 <div>
-                                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-6">
+                                  <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-6">
                                     Track Info
                                   </p>
                                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
@@ -419,11 +414,11 @@ export default function FormPage() {
                                 {/* Classical & Additional group */}
                                 <div>
                                   <div className="flex items-center gap-4 mb-6">
-                                    <div className="flex-1 h-px bg-border" />
-                                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground whitespace-nowrap">
+                                    <div className="flex-1 h-px bg-gradient-to-r from-transparent via-violet-200 to-violet-200" />
+                                    <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 whitespace-nowrap">
                                       Classical &amp; Additional
                                     </p>
-                                    <div className="flex-1 h-px bg-border" />
+                                    <div className="flex-1 h-px bg-gradient-to-r from-violet-200 via-violet-200 to-transparent" />
                                   </div>
                                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
                                     {CLASSICAL_FIELDS.map((f) => (
@@ -452,7 +447,7 @@ export default function FormPage() {
                   <button
                     type="button"
                     onClick={handleAddTrack}
-                    className="w-full py-3 rounded-2xl border-2 border-dashed border-border text-sm font-semibold text-muted-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all duration-200 flex items-center justify-center gap-2"
+                    className="w-full py-3 rounded-3xl border-2 border-dashed border-violet-300 text-sm font-semibold text-violet-500 hover:bg-violet-50 transition-all duration-200 flex items-center justify-center gap-2"
                   >
                     <Plus className="w-4 h-4" />
                     Add another track ({trackFields.length}/{MAX_TRACKS})
@@ -465,7 +460,7 @@ export default function FormPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl font-bold text-lg bg-gradient-to-r from-primary to-primary/90 text-primary-foreground shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/30 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none transition-all duration-200"
+                  className="inline-flex items-center justify-center gap-3 px-12 py-4 rounded-full font-bold text-lg bg-gradient-to-r from-violet-500 to-pink-500 text-white shadow-xl shadow-pink-500/20 hover:shadow-2xl hover:shadow-pink-500/30 hover:opacity-95 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none transition-all duration-200"
                 >
                   {isSubmitting ? (
                     <>

@@ -29,7 +29,7 @@ export const BeautifulSelect = React.forwardRef<HTMLSelectElement, BeautifulSele
           className
         )}
       >
-        <label className="text-sm font-semibold text-foreground/80 ml-1">
+        <label className="text-sm font-semibold text-gray-500 pl-4">
           {label}
         </label>
         <div className="relative">
@@ -37,12 +37,12 @@ export const BeautifulSelect = React.forwardRef<HTMLSelectElement, BeautifulSele
             ref={ref}
             {...props}
             className={cn(
-              "w-full px-4 py-3 pr-10 rounded-xl text-sm font-medium transition-all duration-200 appearance-none",
-              "bg-muted/50 border-2 border-transparent text-foreground",
-              "hover:bg-muted/80",
-              "focus:bg-background focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10",
-              error && "border-destructive/50 focus:border-destructive focus:ring-destructive/10 bg-destructive/5",
-              !props.value && "text-muted-foreground/60"
+              "w-full h-11 px-5 pr-10 rounded-full text-sm font-medium transition-all duration-200 appearance-none",
+              "bg-gray-50 border-2 border-gray-200 text-gray-900",
+              "hover:bg-gray-100/60",
+              "focus:bg-white focus:outline-none focus:border-violet-400 focus:ring-4 focus:ring-violet-400/10",
+              error && "border-red-300 focus:border-red-400 focus:ring-red-400/10 bg-red-50/30",
+              !props.value && "text-gray-400"
             )}
           >
             <option value="">Select a language…</option>
@@ -52,9 +52,9 @@ export const BeautifulSelect = React.forwardRef<HTMLSelectElement, BeautifulSele
               </option>
             ))}
           </select>
-          <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+          <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center">
             <svg
-              className="w-4 h-4 text-muted-foreground"
+              className="w-4 h-4 text-gray-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -65,7 +65,7 @@ export const BeautifulSelect = React.forwardRef<HTMLSelectElement, BeautifulSele
           </div>
         </div>
         {error && (
-          <span className="text-xs font-medium text-destructive ml-1 animate-in fade-in slide-in-from-top-1">
+          <span className="text-xs font-medium text-red-500 pl-4 animate-in fade-in slide-in-from-top-1">
             {error}
           </span>
         )}

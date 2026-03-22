@@ -23,22 +23,22 @@ export const BeautifulInput = React.forwardRef<HTMLInputElement, BeautifulInputP
           className
         )}
       >
-        <label className="text-sm font-semibold text-foreground/80 ml-1">
+        <label className="text-sm font-semibold text-gray-500 pl-4">
           {label}
         </label>
         <input
           ref={ref}
           {...props}
           className={cn(
-            "w-full px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200",
-            "bg-muted/50 border-2 border-transparent text-foreground placeholder:text-muted-foreground/60",
-            "hover:bg-muted/80",
-            "focus:bg-background focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10",
-            error && "border-destructive/50 focus:border-destructive focus:ring-destructive/10 bg-destructive/5"
+            "w-full h-11 px-5 rounded-full text-sm font-medium transition-all duration-200",
+            "bg-gray-50 border-2 border-gray-200 text-gray-900 placeholder:text-gray-400",
+            "hover:bg-gray-100/60",
+            "focus:bg-white focus:outline-none focus:border-violet-400 focus:ring-4 focus:ring-violet-400/10",
+            error && "border-red-300 focus:border-red-400 focus:ring-red-400/10 bg-red-50/30"
           )}
         />
         {error && (
-          <span className="text-xs font-medium text-destructive ml-1 animate-in fade-in slide-in-from-top-1">
+          <span className="text-xs font-medium text-red-500 pl-4 animate-in fade-in slide-in-from-top-1">
             {error}
           </span>
         )}
