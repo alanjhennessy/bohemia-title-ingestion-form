@@ -81,7 +81,7 @@ export default function FormPage() {
             transition={{ delay: 0.1 }}
             className="mt-4 text-lg text-slate-300 font-medium max-w-2xl mx-auto"
           >
-            Submit your release metadata directly to the master catalog.
+            Submit your release metadata
           </motion.p>
         </div>
       </div>
