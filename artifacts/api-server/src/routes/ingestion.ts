@@ -112,7 +112,7 @@ router.post("/ingestion/submit", async (req, res) => {
     const sheets = await getUncachableGoogleSheetClient();
     await sheets.spreadsheets.values.append({
       spreadsheetId: targetSpreadsheetId,
-      range: `'${SHEET_NAME}'!A:A`,
+      range: `'${SHEET_NAME}'!A1`,
       valueInputOption: "USER_ENTERED",
       requestBody: {
         values: [row],
