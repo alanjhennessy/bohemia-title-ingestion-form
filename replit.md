@@ -48,7 +48,19 @@ Every package extends `tsconfig.base.json` which sets `composite: true`. The roo
 - `pnpm run build` — runs `typecheck` first, then recursively runs `build` in all packages that define it
 - `pnpm run typecheck` — runs `tsc --build --emitDeclarationOnly` using project references
 
+## Integrations
+
+- **Google Sheets** (google-sheet connector): Used to write form submissions to a target Google Spreadsheet. Auth helper lives at `artifacts/api-server/src/lib/google-sheets.ts`.
+
 ## Packages
+
+### `artifacts/client-form` (`@workspace/client-form`)
+
+React + Vite frontend for the Music Ingestion Portal. Clients fill in album/track metadata which is submitted via the API server to a configured Google Sheet.
+
+- Pages: `FormPage.tsx` (multi-section form), `SettingsPage.tsx` (configure target spreadsheet)
+- Field config: `src/lib/field-config.ts`
+- Entry: served at `/` (previewPath)
 
 ### `artifacts/api-server` (`@workspace/api-server`)
 

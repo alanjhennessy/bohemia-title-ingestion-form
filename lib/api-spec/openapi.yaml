@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: ingestion
+    description: Music ingestion form operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,66 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /ingestion/submit:
+    post:
+      operationId: submitIngestion
+      tags: [ingestion]
+      summary: Submit client ingestion form
+      description: Appends a new row to the Google Sheet with client-provided data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IngestionFormData"
+      responses:
+        "200":
+          description: Successfully submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SubmitResponse"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /ingestion/spreadsheet-id:
+    get:
+      operationId: getSpreadsheetId
+      tags: [ingestion]
+      summary: Get the current target spreadsheet ID
+      responses:
+        "200":
+          description: Spreadsheet ID info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SpreadsheetInfo"
+    post:
+      operationId: setSpreadsheetId
+      tags: [ingestion]
+      summary: Set or update the target spreadsheet ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetSpreadsheetRequest"
+      responses:
+        "200":
+          description: Updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SpreadsheetInfo"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +95,177 @@ components:
           type: string
       required:
         - status
-
+    IngestionFormData:
+      type: object
+      description: Music ingestion form fields matching the Google Sheet columns
+      properties:
+        albumTitle:
+          type: string
+        albumVersion:
+          type: string
+        albumDisplayArtist:
+          type: string
+        upc:
+          type: string
+        catalogNumber:
+          type: string
+        primaryArtists:
+          type: string
+        featuringArtists:
+          type: string
+        releaseDate:
+          type: string
+        originalReleaseDate:
+          type: string
+        mainGenre:
+          type: string
+        mainSubgenre:
+          type: string
+        alternateGenre:
+          type: string
+        alternateSubgenre:
+          type: string
+        label:
+          type: string
+        cLineYear:
+          type: string
+        cLineName:
+          type: string
+        pLineYear:
+          type: string
+        pLineName:
+          type: string
+        parentalAdvisory:
+          type: string
+        recordingYear:
+          type: string
+        recordingLocation:
+          type: string
+        albumFormat:
+          type: string
+        numberOfVolumes:
+          type: string
+        territories:
+          type: string
+        excludedTerritories:
+          type: string
+        languageMetadata:
+          type: string
+        catalogTier:
+          type: string
+        trackTitle:
+          type: string
+        trackVersion:
+          type: string
+        isrc:
+          type: string
+        trackPrimaryArtists:
+          type: string
+        trackFeaturingArtists:
+          type: string
+        trackDisplayArtist:
+          type: string
+        volumeNumber:
+          type: string
+        trackMainGenre:
+          type: string
+        trackMainSubgenre:
+          type: string
+        trackAlternateGenre:
+          type: string
+        trackAlternateSubgenre:
+          type: string
+        trackLanguageMetadata:
+          type: string
+        audioLanguage:
+          type: string
+        lyrics:
+          type: string
+        availableSeparately:
+          type: string
+        trackParentalAdvisory:
+          type: string
+        previewStart:
+          type: string
+        previewLength:
+          type: string
+        trackRecordingYear:
+          type: string
+        trackRecordingLocation:
+          type: string
+        composers:
+          type: string
+        lyricists:
+          type: string
+        masteringEngineer:
+          type: string
+        producer:
+          type: string
+        programmer:
+          type: string
+        remixers:
+          type: string
+        vocals:
+          type: string
+        writer:
+          type: string
+        publisher:
+          type: string
+        trackSequence:
+          type: string
+        trackCatalogTier:
+          type: string
+        originalFileName:
+          type: string
+        movementTitle:
+          type: string
+        classicalKey:
+          type: string
+        classicalWork:
+          type: string
+        alwaysSendDisplayTitle:
+          type: string
+        movementNumber:
+          type: string
+        classicalCatalog:
+          type: string
+        contributingArtists:
+          type: string
+        performers:
+          type: string
+      required: []
+    SubmitResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        spreadsheetId:
+          type: string
+        message:
+          type: string
+      required:
+        - success
+        - message
+    SpreadsheetInfo:
+      type: object
+      properties:
+        spreadsheetId:
+          type: string
+        spreadsheetUrl:
+          type: string
+      required:
+        - spreadsheetId
+    SetSpreadsheetRequest:
+      type: object
+      properties:
+        spreadsheetId:
+          type: string
+      required:
+        - spreadsheetId
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error

@@ -5,18 +5,28 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import type {
+  MutationFunction,
   QueryFunction,
   QueryKey,
+  UseMutationOptions,
+  UseMutationResult,
   UseQueryOptions,
   UseQueryResult,
 } from "@tanstack/react-query";
 
-import type { HealthStatus } from "./api.schemas";
+import type {
+  ErrorResponse,
+  HealthStatus,
+  IngestionFormData,
+  SetSpreadsheetRequest,
+  SpreadsheetInfo,
+  SubmitResponse,
+} from "./api.schemas";
 
 import { customFetch } from "../custom-fetch";
-import type { ErrorType } from "../custom-fetch";
+import type { ErrorType, BodyType } from "../custom-fetch";
 
 type AwaitedInput<T> = PromiseLike<T> | T;
 
@@ -99,3 +109,251 @@ export function useHealthCheck<
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+/**
+ * Appends a new row to the Google Sheet with client-provided data
+ * @summary Submit client ingestion form
+ */
+export const getSubmitIngestionUrl = () => {
+  return `/api/ingestion/submit`;
+};
+
+export const submitIngestion = async (
+  ingestionFormData: IngestionFormData,
+  options?: RequestInit,
+): Promise<SubmitResponse> => {
+  return customFetch<SubmitResponse>(getSubmitIngestionUrl(), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(ingestionFormData),
+  });
+};
+
+export const getSubmitIngestionMutationOptions = <
+  TError = ErrorType<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof submitIngestion>>,
+    TError,
+    { data: BodyType<IngestionFormData> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof submitIngestion>>,
+  TError,
+  { data: BodyType<IngestionFormData> },
+  TContext
+> => {
+  const mutationKey = ["submitIngestion"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof submitIngestion>>,
+    { data: BodyType<IngestionFormData> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return submitIngestion(data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type SubmitIngestionMutationResult = NonNullable<
+  Awaited<ReturnType<typeof submitIngestion>>
+>;
+export type SubmitIngestionMutationBody = BodyType<IngestionFormData>;
+export type SubmitIngestionMutationError = ErrorType<ErrorResponse>;
+
+/**
+ * @summary Submit client ingestion form
+ */
+export const useSubmitIngestion = <
+  TError = ErrorType<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof submitIngestion>>,
+    TError,
+    { data: BodyType<IngestionFormData> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof submitIngestion>>,
+  TError,
+  { data: BodyType<IngestionFormData> },
+  TContext
+> => {
+  return useMutation(getSubmitIngestionMutationOptions(options));
+};
+
+/**
+ * @summary Get the current target spreadsheet ID
+ */
+export const getGetSpreadsheetIdUrl = () => {
+  return `/api/ingestion/spreadsheet-id`;
+};
+
+export const getSpreadsheetId = async (
+  options?: RequestInit,
+): Promise<SpreadsheetInfo> => {
+  return customFetch<SpreadsheetInfo>(getGetSpreadsheetIdUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetSpreadsheetIdQueryKey = () => {
+  return [`/api/ingestion/spreadsheet-id`] as const;
+};
+
+export const getGetSpreadsheetIdQueryOptions = <
+  TData = Awaited<ReturnType<typeof getSpreadsheetId>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getSpreadsheetId>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetSpreadsheetIdQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getSpreadsheetId>>
+  > = ({ signal }) => getSpreadsheetId({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getSpreadsheetId>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetSpreadsheetIdQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getSpreadsheetId>>
+>;
+export type GetSpreadsheetIdQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Get the current target spreadsheet ID
+ */
+
+export function useGetSpreadsheetId<
+  TData = Awaited<ReturnType<typeof getSpreadsheetId>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getSpreadsheetId>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetSpreadsheetIdQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Set or update the target spreadsheet ID
+ */
+export const getSetSpreadsheetIdUrl = () => {
+  return `/api/ingestion/spreadsheet-id`;
+};
+
+export const setSpreadsheetId = async (
+  setSpreadsheetRequest: SetSpreadsheetRequest,
+  options?: RequestInit,
+): Promise<SpreadsheetInfo> => {
+  return customFetch<SpreadsheetInfo>(getSetSpreadsheetIdUrl(), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(setSpreadsheetRequest),
+  });
+};
+
+export const getSetSpreadsheetIdMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof setSpreadsheetId>>,
+    TError,
+    { data: BodyType<SetSpreadsheetRequest> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof setSpreadsheetId>>,
+  TError,
+  { data: BodyType<SetSpreadsheetRequest> },
+  TContext
+> => {
+  const mutationKey = ["setSpreadsheetId"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof setSpreadsheetId>>,
+    { data: BodyType<SetSpreadsheetRequest> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return setSpreadsheetId(data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type SetSpreadsheetIdMutationResult = NonNullable<
+  Awaited<ReturnType<typeof setSpreadsheetId>>
+>;
+export type SetSpreadsheetIdMutationBody = BodyType<SetSpreadsheetRequest>;
+export type SetSpreadsheetIdMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Set or update the target spreadsheet ID
+ */
+export const useSetSpreadsheetId = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof setSpreadsheetId>>,
+    TError,
+    { data: BodyType<SetSpreadsheetRequest> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof setSpreadsheetId>>,
+  TError,
+  { data: BodyType<SetSpreadsheetRequest> },
+  TContext
+> => {
+  return useMutation(getSetSpreadsheetIdMutationOptions(options));
+};

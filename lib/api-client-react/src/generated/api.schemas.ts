@@ -8,3 +8,95 @@
 export interface HealthStatus {
   status: string;
 }
+
+/**
+ * Music ingestion form fields matching the Google Sheet columns
+ */
+export interface IngestionFormData {
+  albumTitle?: string;
+  albumVersion?: string;
+  albumDisplayArtist?: string;
+  upc?: string;
+  catalogNumber?: string;
+  primaryArtists?: string;
+  featuringArtists?: string;
+  releaseDate?: string;
+  originalReleaseDate?: string;
+  mainGenre?: string;
+  mainSubgenre?: string;
+  alternateGenre?: string;
+  alternateSubgenre?: string;
+  label?: string;
+  cLineYear?: string;
+  cLineName?: string;
+  pLineYear?: string;
+  pLineName?: string;
+  parentalAdvisory?: string;
+  recordingYear?: string;
+  recordingLocation?: string;
+  albumFormat?: string;
+  numberOfVolumes?: string;
+  territories?: string;
+  excludedTerritories?: string;
+  languageMetadata?: string;
+  catalogTier?: string;
+  trackTitle?: string;
+  trackVersion?: string;
+  isrc?: string;
+  trackPrimaryArtists?: string;
+  trackFeaturingArtists?: string;
+  trackDisplayArtist?: string;
+  volumeNumber?: string;
+  trackMainGenre?: string;
+  trackMainSubgenre?: string;
+  trackAlternateGenre?: string;
+  trackAlternateSubgenre?: string;
+  trackLanguageMetadata?: string;
+  audioLanguage?: string;
+  lyrics?: string;
+  availableSeparately?: string;
+  trackParentalAdvisory?: string;
+  previewStart?: string;
+  previewLength?: string;
+  trackRecordingYear?: string;
+  trackRecordingLocation?: string;
+  composers?: string;
+  lyricists?: string;
+  masteringEngineer?: string;
+  producer?: string;
+  programmer?: string;
+  remixers?: string;
+  vocals?: string;
+  writer?: string;
+  publisher?: string;
+  trackSequence?: string;
+  trackCatalogTier?: string;
+  originalFileName?: string;
+  movementTitle?: string;
+  classicalKey?: string;
+  classicalWork?: string;
+  alwaysSendDisplayTitle?: string;
+  movementNumber?: string;
+  classicalCatalog?: string;
+  contributingArtists?: string;
+  performers?: string;
+}
+
+export interface SubmitResponse {
+  success: boolean;
+  spreadsheetId?: string;
+  message: string;
+}
+
+export interface SpreadsheetInfo {
+  spreadsheetId: string;
+  spreadsheetUrl?: string;
+}
+
+export interface SetSpreadsheetRequest {
+  spreadsheetId: string;
+}
+
+export interface ErrorResponse {
+  error: string;
+}

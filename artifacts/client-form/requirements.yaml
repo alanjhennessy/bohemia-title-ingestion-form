@@ -1,0 +1,14 @@
+packages:
+  "react-hook-form": "Form state management for the large ingestion form"
+  "framer-motion": "Smooth UI animations, reveals, and transitions"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility to merge tailwind classes without style conflicts"
+
+images:
+  - path: "artifacts/client-form/public/images/hero-bg.png"
+    description: "Very subtle, elegant, light abstract gradient mesh background in pale indigo, slate, and white. Clean, minimal, professional, corporate. Lots of negative space."
+    aspect_ratio: "16:9"
+
+notes:
+  - Uses @workspace/api-client-react for generated React Query hooks
+  - Assumes standard Shadcn UI toaster exists at @/hooks/use-toast and @/components/ui/toaster

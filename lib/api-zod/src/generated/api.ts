@@ -14,3 +14,105 @@ import * as zod from "zod";
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
+
+/**
+ * Appends a new row to the Google Sheet with client-provided data
+ * @summary Submit client ingestion form
+ */
+export const SubmitIngestionBody = zod
+  .object({
+    albumTitle: zod.string().optional(),
+    albumVersion: zod.string().optional(),
+    albumDisplayArtist: zod.string().optional(),
+    upc: zod.string().optional(),
+    catalogNumber: zod.string().optional(),
+    primaryArtists: zod.string().optional(),
+    featuringArtists: zod.string().optional(),
+    releaseDate: zod.string().optional(),
+    originalReleaseDate: zod.string().optional(),
+    mainGenre: zod.string().optional(),
+    mainSubgenre: zod.string().optional(),
+    alternateGenre: zod.string().optional(),
+    alternateSubgenre: zod.string().optional(),
+    label: zod.string().optional(),
+    cLineYear: zod.string().optional(),
+    cLineName: zod.string().optional(),
+    pLineYear: zod.string().optional(),
+    pLineName: zod.string().optional(),
+    parentalAdvisory: zod.string().optional(),
+    recordingYear: zod.string().optional(),
+    recordingLocation: zod.string().optional(),
+    albumFormat: zod.string().optional(),
+    numberOfVolumes: zod.string().optional(),
+    territories: zod.string().optional(),
+    excludedTerritories: zod.string().optional(),
+    languageMetadata: zod.string().optional(),
+    catalogTier: zod.string().optional(),
+    trackTitle: zod.string().optional(),
+    trackVersion: zod.string().optional(),
+    isrc: zod.string().optional(),
+    trackPrimaryArtists: zod.string().optional(),
+    trackFeaturingArtists: zod.string().optional(),
+    trackDisplayArtist: zod.string().optional(),
+    volumeNumber: zod.string().optional(),
+    trackMainGenre: zod.string().optional(),
+    trackMainSubgenre: zod.string().optional(),
+    trackAlternateGenre: zod.string().optional(),
+    trackAlternateSubgenre: zod.string().optional(),
+    trackLanguageMetadata: zod.string().optional(),
+    audioLanguage: zod.string().optional(),
+    lyrics: zod.string().optional(),
+    availableSeparately: zod.string().optional(),
+    trackParentalAdvisory: zod.string().optional(),
+    previewStart: zod.string().optional(),
+    previewLength: zod.string().optional(),
+    trackRecordingYear: zod.string().optional(),
+    trackRecordingLocation: zod.string().optional(),
+    composers: zod.string().optional(),
+    lyricists: zod.string().optional(),
+    masteringEngineer: zod.string().optional(),
+    producer: zod.string().optional(),
+    programmer: zod.string().optional(),
+    remixers: zod.string().optional(),
+    vocals: zod.string().optional(),
+    writer: zod.string().optional(),
+    publisher: zod.string().optional(),
+    trackSequence: zod.string().optional(),
+    trackCatalogTier: zod.string().optional(),
+    originalFileName: zod.string().optional(),
+    movementTitle: zod.string().optional(),
+    classicalKey: zod.string().optional(),
+    classicalWork: zod.string().optional(),
+    alwaysSendDisplayTitle: zod.string().optional(),
+    movementNumber: zod.string().optional(),
+    classicalCatalog: zod.string().optional(),
+    contributingArtists: zod.string().optional(),
+    performers: zod.string().optional(),
+  })
+  .describe("Music ingestion form fields matching the Google Sheet columns");
+
+export const SubmitIngestionResponse = zod.object({
+  success: zod.boolean(),
+  spreadsheetId: zod.string().optional(),
+  message: zod.string(),
+});
+
+/**
+ * @summary Get the current target spreadsheet ID
+ */
+export const GetSpreadsheetIdResponse = zod.object({
+  spreadsheetId: zod.string(),
+  spreadsheetUrl: zod.string().optional(),
+});
+
+/**
+ * @summary Set or update the target spreadsheet ID
+ */
+export const SetSpreadsheetIdBody = zod.object({
+  spreadsheetId: zod.string(),
+});
+
+export const SetSpreadsheetIdResponse = zod.object({
+  spreadsheetId: zod.string(),
+  spreadsheetUrl: zod.string().optional(),
+});
