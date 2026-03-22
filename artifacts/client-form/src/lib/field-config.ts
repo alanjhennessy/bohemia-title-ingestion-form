@@ -1,9 +1,13 @@
+import { LANGUAGE_OPTIONS } from "./languages";
+import type { LanguageOption } from "./languages";
+
 export interface FieldConfig {
   id: string;
   label: string;
   type: string;
   placeholder?: string;
   colSpan?: 1 | 2 | 3;
+  options?: LanguageOption[];
 }
 
 export const ALBUM_FIELDS: FieldConfig[] = [
@@ -32,7 +36,7 @@ export const ALBUM_FIELDS: FieldConfig[] = [
   { id: "numberOfVolumes", label: "Number of Volumes", type: "number" },
   { id: "territories", label: "Territories", type: "text", colSpan: 2 },
   { id: "excludedTerritories", label: "Excluded Territories", type: "text", colSpan: 2 },
-  { id: "languageMetadata", label: "Language (Metadata)", type: "text" },
+  { id: "languageMetadata", label: "Language (Metadata)", type: "select", options: LANGUAGE_OPTIONS },
   { id: "catalogTier", label: "Catalog Tier", type: "text" },
 ];
 
@@ -48,8 +52,8 @@ export const TRACK_FIELDS: FieldConfig[] = [
   { id: "trackMainSubgenre", label: "Track Main Subgenre", type: "text" },
   { id: "trackAlternateGenre", label: "Track Alternate Genre", type: "text" },
   { id: "trackAlternateSubgenre", label: "Track Alternate Subgenre", type: "text" },
-  { id: "trackLanguageMetadata", label: "Track Language (Metadata)", type: "text" },
-  { id: "audioLanguage", label: "Audio Language", type: "text" },
+  { id: "trackLanguageMetadata", label: "Track Language (Metadata)", type: "select", options: LANGUAGE_OPTIONS },
+  { id: "audioLanguage", label: "Audio Language", type: "select", options: LANGUAGE_OPTIONS },
   { id: "lyrics", label: "Lyrics", type: "text", colSpan: 3 },
   { id: "availableSeparately", label: "Available Separately", type: "text" },
   { id: "trackParentalAdvisory", label: "Track Parental Advisory", type: "text" },

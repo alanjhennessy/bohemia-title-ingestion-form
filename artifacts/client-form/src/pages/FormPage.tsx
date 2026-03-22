@@ -15,6 +15,7 @@ import {
 import { submitIngestion, type IngestionFormData } from "@workspace/api-client-react";
 import { ALBUM_FIELDS, TRACK_FIELDS, CLASSICAL_FIELDS } from "@/lib/field-config";
 import { BeautifulInput } from "@/components/form/BeautifulInput";
+import { BeautifulSelect } from "@/components/form/BeautifulSelect";
 import { useToast } from "@/hooks/use-toast";
 
 const MAX_TRACKS = 50;
@@ -261,16 +262,26 @@ export default function FormPage() {
                     >
                       <div className="p-6 md:p-8">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
-                          {ALBUM_FIELDS.map((field) => (
-                            <BeautifulInput
-                              key={field.id}
-                              label={field.label}
-                              type={field.type}
-                              placeholder={field.placeholder || `Enter ${field.label.toLowerCase()}`}
-                              colSpan={field.colSpan}
-                              {...register(field.id as keyof Omit<FormValues, "tracks">)}
-                            />
-                          ))}
+                          {ALBUM_FIELDS.map((field) =>
+                            field.type === "select" && field.options ? (
+                              <BeautifulSelect
+                                key={field.id}
+                                label={field.label}
+                                options={field.options}
+                                colSpan={field.colSpan}
+                                {...register(field.id as keyof Omit<FormValues, "tracks">)}
+                              />
+                            ) : (
+                              <BeautifulInput
+                                key={field.id}
+                                label={field.label}
+                                type={field.type}
+                                placeholder={field.placeholder || `Enter ${field.label.toLowerCase()}`}
+                                colSpan={field.colSpan}
+                                {...register(field.id as keyof Omit<FormValues, "tracks">)}
+                              />
+                            )
+                          )}
                         </div>
                       </div>
                     </motion.div>
@@ -382,16 +393,26 @@ export default function FormPage() {
                                     Track Info
                                   </p>
                                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
-                                    {TRACK_FIELDS.map((f) => (
-                                      <BeautifulInput
-                                        key={f.id}
-                                        label={f.label}
-                                        type={f.type}
-                                        placeholder={f.placeholder || `Enter ${f.label.toLowerCase()}`}
-                                        colSpan={f.colSpan}
-                                        {...register(`tracks.${index}.${f.id}` as `tracks.${number}.${string}`)}
-                                      />
-                                    ))}
+                                    {TRACK_FIELDS.map((f) =>
+                                      f.type === "select" && f.options ? (
+                                        <BeautifulSelect
+                                          key={f.id}
+                                          label={f.label}
+                                          options={f.options}
+                                          colSpan={f.colSpan}
+                                          {...register(`tracks.${index}.${f.id}` as `tracks.${number}.${string}`)}
+                                        />
+                                      ) : (
+                                        <BeautifulInput
+                                          key={f.id}
+                                          label={f.label}
+                                          type={f.type}
+                                          placeholder={f.placeholder || `Enter ${f.label.toLowerCase()}`}
+                                          colSpan={f.colSpan}
+                                          {...register(`tracks.${index}.${f.id}` as `tracks.${number}.${string}`)}
+                                        />
+                                      )
+                                    )}
                                   </div>
                                 </div>
 
