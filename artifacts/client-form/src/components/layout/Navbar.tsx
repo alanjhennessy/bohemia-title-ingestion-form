@@ -25,7 +25,7 @@ export function Navbar() {
               <Disc3 className="h-6 w-6" />
             </div>
             <span className="font-display text-xl font-bold text-foreground">
-              Nexus<span className="text-primary">Music</span>
+              Bohemia Label Services
             </span>
           </div>
 

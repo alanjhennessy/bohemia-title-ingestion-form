@@ -73,7 +73,7 @@ export default function FormPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-extrabold text-white tracking-tight"
           >
-            Music Ingestion Portal
+            Bohemia Label Services
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
