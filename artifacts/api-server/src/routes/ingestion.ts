@@ -73,6 +73,7 @@ const COLUMN_ORDER = [
   "classicalCatalog",
   "contributingArtists",
   "performers",
+  "softrRecordId",
 ];
 
 let targetSpreadsheetId = "";
