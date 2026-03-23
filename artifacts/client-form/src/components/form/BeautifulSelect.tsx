@@ -14,12 +14,13 @@ export interface SelectOption {
 export interface BeautifulSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label: string;
   options: SelectOption[];
+  placeholder?: string;
   error?: string;
   colSpan?: 1 | 2 | 3;
 }
 
 export const BeautifulSelect = React.forwardRef<HTMLSelectElement, BeautifulSelectProps>(
-  ({ label, options, error, colSpan = 1, className, ...props }, ref) => {
+  ({ label, options, placeholder, error, colSpan = 1, className, ...props }, ref) => {
     return (
       <div
         className={cn(
@@ -45,7 +46,7 @@ export const BeautifulSelect = React.forwardRef<HTMLSelectElement, BeautifulSele
               !props.value && "text-gray-400"
             )}
           >
-            <option value="">Select a language…</option>
+            <option value="">{placeholder ?? "Select…"}</option>
             {options.map((opt) => (
               <option key={opt.value} value={opt.value}>
                 {opt.label}

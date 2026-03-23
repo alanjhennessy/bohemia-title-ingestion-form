@@ -263,6 +263,7 @@ export default function FormPage() {
                                 key={field.id}
                                 label={field.label}
                                 options={field.options}
+                                placeholder={field.placeholder}
                                 colSpan={field.colSpan}
                                 {...register(field.id as keyof Omit<FormValues, "tracks">)}
                               />
