@@ -67,7 +67,8 @@ export const ALBUM_FIELDS: FieldConfig[] = [
     { value: "Budget", label: "Budget" },
     { value: "Back", label: "Back" },
     { value: "Mid", label: "Mid" },
-    { value: "Front Premium", label: "Front Premium" },
+    { value: "Front", label: "Front" },
+    { value: "Premium", label: "Premium" },
   ] },
 ];
 
