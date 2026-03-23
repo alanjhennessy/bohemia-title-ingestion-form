@@ -63,7 +63,12 @@ export const ALBUM_FIELDS: FieldConfig[] = [
   { id: "territories", label: "Territories", type: "text", colSpan: 2 },
   { id: "excludedTerritories", label: "Excluded Territories", type: "text", colSpan: 2 },
   { id: "languageMetadata", label: "Language (Metadata)", type: "select", options: LANGUAGE_OPTIONS },
-  { id: "catalogTier", label: "Catalog Tier", type: "text" },
+  { id: "catalogTier", label: "Catalog Tier", type: "select", placeholder: "Select a tier…", options: [
+    { value: "Budget", label: "Budget" },
+    { value: "Back", label: "Back" },
+    { value: "Mid", label: "Mid" },
+    { value: "Front Premium", label: "Front Premium" },
+  ] },
 ];
 
 export const TRACK_FIELDS: FieldConfig[] = [
@@ -97,7 +102,12 @@ export const TRACK_FIELDS: FieldConfig[] = [
   { id: "writer", label: "Writer", type: "text", colSpan: 2 },
   { id: "publisher", label: "Publisher", type: "text", colSpan: 2 },
   { id: "trackSequence", label: "Track Sequence", type: "number" },
-  { id: "trackCatalogTier", label: "Track Catalog Tier", type: "text" },
+  { id: "trackCatalogTier", label: "Track Catalog Tier", type: "select", placeholder: "Select a tier…", options: [
+    { value: "Back", label: "Back" },
+    { value: "Mid", label: "Mid" },
+    { value: "Front", label: "Front" },
+    { value: "Free", label: "Free" },
+  ] },
   { id: "originalFileName", label: "Original File Name", type: "text", colSpan: 2 },
 ];
 

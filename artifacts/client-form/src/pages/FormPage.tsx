@@ -53,7 +53,7 @@ type FormValues = {
   tracks: TrackEntry[];
 };
 
-const emptyTrack = (): TrackEntry => ({});
+const emptyTrack = (): TrackEntry => ({ trackCatalogTier: "Mid" });
 
 export default function FormPage() {
   const { toast } = useToast();
@@ -64,7 +64,7 @@ export default function FormPage() {
   const [expandedTracks, setExpandedTracks] = useState<Set<number>>(new Set([0]));
 
   const { register, handleSubmit, reset, watch, control } = useForm<FormValues>({
-    defaultValues: { tracks: [emptyTrack()] },
+    defaultValues: { catalogTier: "Mid", tracks: [emptyTrack()] },
   });
 
   const { fields: trackFields, append: addTrack, remove: removeTrack } = useFieldArray({
@@ -140,7 +140,7 @@ export default function FormPage() {
   };
 
   const handleReset = () => {
-    reset({ tracks: [emptyTrack()] });
+    reset({ catalogTier: "Mid", tracks: [emptyTrack()] });
     setIsSubmitted(false);
     setAlbumExpanded(true);
     setExpandedTracks(new Set([0]));
