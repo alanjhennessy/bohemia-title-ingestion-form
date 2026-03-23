@@ -11,6 +11,7 @@ import {
   Trash2,
   ChevronDown,
   ChevronUp,
+  Copy,
 } from "lucide-react";
 import { submitIngestion, type IngestionFormData } from "@workspace/api-client-react";
 import { ALBUM_FIELDS, TRACK_FIELDS, CLASSICAL_FIELDS } from "@/lib/field-config";
@@ -63,11 +64,11 @@ export default function FormPage() {
   const [albumExpanded, setAlbumExpanded] = useState(true);
   const [expandedTracks, setExpandedTracks] = useState<Set<number>>(new Set([0]));
 
-  const { register, handleSubmit, reset, watch, control } = useForm<FormValues>({
+  const { register, handleSubmit, reset, watch, control, setValue } = useForm<FormValues>({
     defaultValues: { catalogTier: "Mid", tracks: [emptyTrack()] },
   });
 
-  const { fields: trackFields, append: addTrack, remove: removeTrack } = useFieldArray({
+  const { fields: trackFields, append: addTrack, remove: removeTrack, update: updateTrack } = useFieldArray({
     control,
     name: "tracks",
   });
@@ -99,6 +100,24 @@ export default function FormPage() {
         else if (i > index) next.add(i - 1);
       });
       return next;
+    });
+  };
+
+  const handleCopyToNext = (index: number) => {
+    const source = trackValues?.[index] ?? {};
+    const nextIndex = index + 1;
+    const nextSeq = String(nextIndex + 1);
+    const copied: TrackEntry = { ...source, trackSequence: nextSeq };
+
+    if (nextIndex < trackFields.length) {
+      updateTrack(nextIndex, copied);
+    } else {
+      addTrack(copied);
+    }
+    setExpandedTracks((prev) => new Set([...prev, nextIndex]));
+    toast({
+      title: "Copied to next track",
+      description: `Track ${index + 1} details copied to Track ${nextIndex + 1}. Update the title, ISRC and sequence as needed.`,
     });
   };
 
@@ -434,6 +453,20 @@ export default function FormPage() {
                                     ))}
                                   </div>
                                 </div>
+
+                                {/* Copy to next track */}
+                                {index < MAX_TRACKS - 1 && (
+                                  <div className="pt-4 flex justify-end border-t border-gray-100">
+                                    <button
+                                      type="button"
+                                      onClick={() => handleCopyToNext(index)}
+                                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-violet-600 border-2 border-violet-200 hover:bg-violet-50 hover:border-violet-300 transition-all duration-200"
+                                    >
+                                      <Copy className="w-4 h-4" />
+                                      Copy details to next track
+                                    </button>
+                                  </div>
+                                )}
                               </div>
                             </motion.div>
                           )}
