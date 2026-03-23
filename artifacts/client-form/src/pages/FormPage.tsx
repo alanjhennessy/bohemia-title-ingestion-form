@@ -456,6 +456,48 @@ export default function FormPage() {
                 )}
               </motion.div>
 
+              {/* FAQ Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="bg-white border-2 border-violet-200 rounded-3xl p-8"
+              >
+                <h3 className="font-display font-bold text-xl text-gray-900 mb-6">Frequently Asked Questions</h3>
+                <div className="space-y-6">
+                  <div>
+                    <p className="font-semibold text-gray-900 mb-1">Entering multiple names?</p>
+                    <p className="text-sm text-gray-500 leading-relaxed">
+                      Please separate multiple entries with a pipe ( | ) symbol.<br />
+                      <span className="font-mono text-violet-600 text-xs bg-violet-50 px-2 py-0.5 rounded-full mt-1 inline-block">
+                        Jack Black | James Brown | John Brady
+                      </span>
+                    </p>
+                  </div>
+                  <div className="h-px bg-gradient-to-r from-transparent via-violet-200 to-transparent" />
+                  <div>
+                    <p className="font-semibold text-gray-900 mb-1">What to enter if I don't know?</p>
+                    <p className="text-sm text-gray-500 leading-relaxed">
+                      Only enter the information you know for sure — we'll do the rest.
+                    </p>
+                  </div>
+                  <div className="h-px bg-gradient-to-r from-transparent via-violet-200 to-transparent" />
+                  <div>
+                    <p className="font-semibold text-gray-900 mb-1">Any further questions?</p>
+                    <p className="text-sm text-gray-500 leading-relaxed">
+                      Contact{" "}
+                      <a
+                        href="mailto:alan@bohemiarecords.ie"
+                        className="text-violet-600 font-semibold hover:text-pink-500 transition-colors"
+                      >
+                        alan@bohemiarecords.ie
+                      </a>
+                      {" "}with any questions or to notify of any error adjustments to your submissions.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+
               {/* Submit button */}
               <div className="flex justify-end pt-4 pb-12">
                 <button
