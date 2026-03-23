@@ -54,7 +54,7 @@ type FormValues = {
   tracks: TrackEntry[];
 };
 
-const emptyTrack = (): TrackEntry => ({ trackCatalogTier: "Mid", availableSeparately: "Yes", trackParentalAdvisory: "No" });
+const emptyTrack = (): TrackEntry => ({ trackCatalogTier: "Mid", availableSeparately: "Yes", trackParentalAdvisory: "No", trackLanguageMetadata: "English", audioLanguage: "English" });
 
 export default function FormPage() {
   const { toast } = useToast();
@@ -65,7 +65,7 @@ export default function FormPage() {
   const [expandedTracks, setExpandedTracks] = useState<Set<number>>(new Set([0]));
 
   const { register, handleSubmit, reset, watch, control, setValue } = useForm<FormValues>({
-    defaultValues: { catalogTier: "Mid", tracks: [emptyTrack()] },
+    defaultValues: { catalogTier: "Mid", languageMetadata: "English", tracks: [emptyTrack()] },
   });
 
   const { fields: trackFields, append: addTrack, remove: removeTrack, update: updateTrack } = useFieldArray({
