@@ -14,7 +14,8 @@ import {
   Copy,
 } from "lucide-react";
 import { submitIngestion, type IngestionFormData } from "@workspace/api-client-react";
-import { ALBUM_FIELDS, TRACK_FIELDS, CLASSICAL_FIELDS } from "@/lib/field-config";
+import { ALBUM_FIELD_GROUPS, TRACK_FIELD_GROUPS, CLASSICAL_FIELDS, ALBUM_FIELDS, TRACK_FIELDS } from "@/lib/field-config";
+import type { FieldConfig } from "@/lib/field-config";
 import { BeautifulInput } from "@/components/form/BeautifulInput";
 import { BeautifulSelect } from "@/components/form/BeautifulSelect";
 import { useToast } from "@/hooks/use-toast";
@@ -174,6 +175,27 @@ export default function FormPage() {
     return title ? `${num} — ${title}` : num;
   };
 
+  const renderField = (f: FieldConfig, regKey: string) =>
+    f.type === "select" && f.options ? (
+      <BeautifulSelect
+        key={f.id}
+        label={f.label}
+        options={f.options}
+        placeholder={f.placeholder}
+        colSpan={f.colSpan}
+        {...register(regKey as any)}
+      />
+    ) : (
+      <BeautifulInput
+        key={f.id}
+        label={f.label}
+        type={f.type}
+        placeholder={f.placeholder || `Enter ${f.label.toLowerCase()}`}
+        colSpan={f.colSpan}
+        {...register(regKey as any)}
+      />
+    );
+
   return (
     <main className="min-h-screen pb-24">
       {/* Hero */}
@@ -275,30 +297,21 @@ export default function FormPage() {
                       exit={{ height: 0, opacity: 0 }}
                       className="border-t border-border"
                     >
-                      <div className="p-6 md:p-8">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
-                          {ALBUM_FIELDS.map((field) =>
-                            field.type === "select" && field.options ? (
-                              <BeautifulSelect
-                                key={field.id}
-                                label={field.label}
-                                options={field.options}
-                                placeholder={field.placeholder}
-                                colSpan={field.colSpan}
-                                {...register(field.id as keyof Omit<FormValues, "tracks">)}
-                              />
-                            ) : (
-                              <BeautifulInput
-                                key={field.id}
-                                label={field.label}
-                                type={field.type}
-                                placeholder={field.placeholder || `Enter ${field.label.toLowerCase()}`}
-                                colSpan={field.colSpan}
-                                {...register(field.id as keyof Omit<FormValues, "tracks">)}
-                              />
-                            )
-                          )}
-                        </div>
+                      <div className="p-6 md:p-8 space-y-8">
+                        {ALBUM_FIELD_GROUPS.map((group, gi) => (
+                          <div key={group.title}>
+                            <div className="flex items-center gap-4 mb-5">
+                              {gi > 0 && <div className="flex-1 h-px bg-gradient-to-r from-transparent via-violet-200 to-violet-200" />}
+                              <p className="text-xs font-bold uppercase tracking-widest text-violet-400 whitespace-nowrap">
+                                {group.title}
+                              </p>
+                              <div className="flex-1 h-px bg-gradient-to-r from-violet-200 via-violet-200 to-transparent" />
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-6">
+                              {group.fields.map((f) => renderField(f, f.id))}
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </motion.div>
                   )}
@@ -402,56 +415,33 @@ export default function FormPage() {
                               exit={{ height: 0, opacity: 0 }}
                               className="border-t border-border"
                             >
-                              <div className="p-6 md:p-8 space-y-10">
-                                {/* Track fields group */}
-                                <div>
-                                  <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-6">
-                                    Track Info
-                                  </p>
-                                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
-                                    {TRACK_FIELDS.map((f) =>
-                                      f.type === "select" && f.options ? (
-                                        <BeautifulSelect
-                                          key={f.id}
-                                          label={f.label}
-                                          options={f.options}
-                                          colSpan={f.colSpan}
-                                          {...register(`tracks.${index}.${f.id}` as `tracks.${number}.${string}`)}
-                                        />
-                                      ) : (
-                                        <BeautifulInput
-                                          key={f.id}
-                                          label={f.label}
-                                          type={f.type}
-                                          placeholder={f.placeholder || `Enter ${f.label.toLowerCase()}`}
-                                          colSpan={f.colSpan}
-                                          {...register(`tracks.${index}.${f.id}` as `tracks.${number}.${string}`)}
-                                        />
-                                      )
-                                    )}
+                              <div className="p-6 md:p-8 space-y-8">
+                                {TRACK_FIELD_GROUPS.map((group, gi) => (
+                                  <div key={group.title}>
+                                    <div className="flex items-center gap-4 mb-5">
+                                      {gi > 0 && <div className="flex-1 h-px bg-gradient-to-r from-transparent via-violet-200 to-violet-200" />}
+                                      <p className="text-xs font-bold uppercase tracking-widest text-violet-400 whitespace-nowrap">
+                                        {group.title}
+                                      </p>
+                                      <div className="flex-1 h-px bg-gradient-to-r from-violet-200 via-violet-200 to-transparent" />
+                                    </div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-6">
+                                      {group.fields.map((f) => renderField(f, `tracks.${index}.${f.id}`))}
+                                    </div>
                                   </div>
-                                </div>
+                                ))}
 
-                                {/* Classical & Additional group */}
+                                {/* Classical & Additional */}
                                 <div>
-                                  <div className="flex items-center gap-4 mb-6">
+                                  <div className="flex items-center gap-4 mb-5">
                                     <div className="flex-1 h-px bg-gradient-to-r from-transparent via-violet-200 to-violet-200" />
-                                    <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 whitespace-nowrap">
+                                    <p className="text-xs font-bold uppercase tracking-widest text-violet-400 whitespace-nowrap">
                                       Classical &amp; Additional
                                     </p>
                                     <div className="flex-1 h-px bg-gradient-to-r from-violet-200 via-violet-200 to-transparent" />
                                   </div>
-                                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
-                                    {CLASSICAL_FIELDS.map((f) => (
-                                      <BeautifulInput
-                                        key={f.id}
-                                        label={f.label}
-                                        type={f.type}
-                                        placeholder={f.placeholder || `Enter ${f.label.toLowerCase()}`}
-                                        colSpan={f.colSpan}
-                                        {...register(`tracks.${index}.${f.id}` as `tracks.${number}.${string}`)}
-                                      />
-                                    ))}
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-6">
+                                    {CLASSICAL_FIELDS.map((f) => renderField(f, `tracks.${index}.${f.id}`))}
                                   </div>
                                 </div>
 
