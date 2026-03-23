@@ -87,7 +87,7 @@ export const TRACK_FIELDS: FieldConfig[] = [
   { id: "trackAlternateGenre", label: "Track Alternate Genre", type: "text" },
   { id: "trackAlternateSubgenre", label: "Track Alternate Subgenre", type: "text" },
   { id: "trackLanguageMetadata", label: "Track Language (Metadata)", type: "select", options: LANGUAGE_OPTIONS },
-  { id: "audioLanguage", label: "Audio Language", type: "select", options: LANGUAGE_OPTIONS },
+  { id: "audioLanguage", label: "Audio Language", type: "select", options: [{ value: "zx", label: "Instrumental (zx)" }, ...LANGUAGE_OPTIONS] },
   { id: "lyrics", label: "Lyrics", type: "text", colSpan: 3 },
   { id: "availableSeparately", label: "Available Separately", type: "select", options: [
     { value: "Yes", label: "Yes" },
