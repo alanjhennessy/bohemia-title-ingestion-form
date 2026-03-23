@@ -106,7 +106,8 @@ export default function FormPage() {
   const handleCopyToNext = (index: number) => {
     const source = trackValues?.[index] ?? {};
     const nextIndex = index + 1;
-    const nextSeq = String(nextIndex + 1);
+    const sourceSeq = parseInt(source.trackSequence || String(index + 1), 10);
+    const nextSeq = String(isNaN(sourceSeq) ? nextIndex + 1 : sourceSeq + 1);
     const copied: TrackEntry = { ...source, trackSequence: nextSeq };
 
     if (nextIndex < trackFields.length) {
