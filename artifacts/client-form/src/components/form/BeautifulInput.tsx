@@ -14,10 +14,11 @@ export interface BeautifulInputProps extends React.InputHTMLAttributes<HTMLInput
 
 export const BeautifulInput = React.forwardRef<HTMLInputElement, BeautifulInputProps>(
   ({ label, error, colSpan = 1, className, ...props }, ref) => {
+    const isDate = props.type === "date";
     return (
       <div
         className={cn(
-          "flex flex-col gap-1.5",
+          "flex flex-col gap-1.5 min-w-0",
           colSpan === 2 && "sm:col-span-2",
           colSpan === 3 && "sm:col-span-2 lg:col-span-3",
           className
@@ -30,7 +31,8 @@ export const BeautifulInput = React.forwardRef<HTMLInputElement, BeautifulInputP
           ref={ref}
           {...props}
           className={cn(
-            "w-full h-11 px-5 rounded-full text-sm font-medium transition-all duration-200",
+            "w-full min-w-0 h-11 text-sm font-medium transition-all duration-200",
+            isDate ? "px-3 rounded-2xl" : "px-5 rounded-full",
             "bg-gray-50 border-2 border-gray-200 text-gray-900 placeholder:text-gray-400",
             "hover:bg-gray-100/60",
             "focus:bg-white focus:outline-none focus:border-violet-400 focus:ring-4 focus:ring-violet-400/10",
