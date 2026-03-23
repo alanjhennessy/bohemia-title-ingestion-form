@@ -50,6 +50,7 @@ export const LANGUAGE_OPTIONS: LanguageOption[] = [
   { value: "Kurdish", label: "Kurdish (ku)" },
   { value: "Kyrgyz", label: "Kyrgyz (ky)" },
   { value: "Lao", label: "Lao (lo)" },
+  { value: "Latin", label: "Latin (la)" },
   { value: "Latvian", label: "Latvian (lv)" },
   { value: "Lithuanian", label: "Lithuanian (lt)" },
   { value: "Macedonian", label: "Macedonian (mk)" },
