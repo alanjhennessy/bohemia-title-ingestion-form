@@ -53,7 +53,7 @@ type FormValues = {
   tracks: TrackEntry[];
 };
 
-const emptyTrack = (): TrackEntry => ({ trackCatalogTier: "Mid" });
+const emptyTrack = (): TrackEntry => ({ trackCatalogTier: "Mid", availableSeparately: "Yes", trackParentalAdvisory: "No" });
 
 export default function FormPage() {
   const { toast } = useToast();

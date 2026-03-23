@@ -87,8 +87,14 @@ export const TRACK_FIELDS: FieldConfig[] = [
   { id: "trackLanguageMetadata", label: "Track Language (Metadata)", type: "select", options: LANGUAGE_OPTIONS },
   { id: "audioLanguage", label: "Audio Language", type: "select", options: LANGUAGE_OPTIONS },
   { id: "lyrics", label: "Lyrics", type: "text", colSpan: 3 },
-  { id: "availableSeparately", label: "Available Separately", type: "text" },
-  { id: "trackParentalAdvisory", label: "Track Parental Advisory", type: "text" },
+  { id: "availableSeparately", label: "Available Separately", type: "select", options: [
+    { value: "Yes", label: "Yes" },
+    { value: "No", label: "No" },
+  ] },
+  { id: "trackParentalAdvisory", label: "Track Parental Advisory", type: "select", options: [
+    { value: "No", label: "No" },
+    { value: "Yes", label: "Yes" },
+  ] },
   { id: "previewStart", label: "Preview Start", type: "text", placeholder: "00:00" },
   { id: "previewLength", label: "Preview Length", type: "text", placeholder: "00:30" },
   { id: "trackRecordingYear", label: "Track Recording Year", type: "number", placeholder: "YYYY" },
