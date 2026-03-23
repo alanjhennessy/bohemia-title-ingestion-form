@@ -27,7 +27,7 @@ function Router() {
       <div className="flex-1">
         <Switch>
           <Route path="/" component={FormPage} />
-          <Route path="/settings" component={SettingsPage} />
+          {!import.meta.env.PROD && <Route path="/settings" component={SettingsPage} />}
           <Route component={NotFound} />
         </Switch>
       </div>

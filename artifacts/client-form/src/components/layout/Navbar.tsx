@@ -13,7 +13,7 @@ export function Navbar() {
 
   const links = [
     { href: "/", label: "Intake Form", icon: ClipboardList },
-    { href: "/settings", label: "Settings", icon: Settings },
+    ...(!import.meta.env.PROD ? [{ href: "/settings", label: "Settings", icon: Settings }] : []),
   ];
 
   return (
